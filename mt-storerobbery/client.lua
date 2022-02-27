@@ -66,7 +66,7 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
         end
     end)
     else
-        QBCore.Functions.Notify("This store was recently robber and left  empty...")
+        QBCore.Functions.Notify("This store was recently robber and left empty...")
         end
     end)
 end)
