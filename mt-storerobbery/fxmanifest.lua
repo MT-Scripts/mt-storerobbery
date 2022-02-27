@@ -4,7 +4,7 @@ game 'gta5'
 
 author 'mt scripts'
 
-description 'mt-atmrobbery'
+description 'mt-storerobbery'
 
 version '0.1'
 
