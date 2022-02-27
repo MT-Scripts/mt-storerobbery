@@ -13,22 +13,22 @@ RegisterServerEvent('mt-storerobbery:server:ItensParteleiras', function()
         if Player.Functions.AddItem("water_bottle", quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["water_bottle"], 'add')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'you have to much in pockets.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end  
     elseif prob >= 30 and prob < 40 then
         if Player.Functions.AddItem("sandwich", quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sandwich"], 'add')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'you have to much in pockets.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end 
     elseif prob >= 50 and prob < 60 then
         if Player.Functions.AddItem("lighter", quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["lighter"], 'add')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'you have to much in pockets.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'The Shelf is empty...', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'This Shelf is empty...', 'error')
     end      
 end)
 
@@ -55,16 +55,16 @@ RegisterServerEvent('mt-storerobbery:server:ItensCofre', function()
         if Player.Functions.AddItem("goldbar", quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["goldbar"], 'add')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'you have to much in pockets.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end  
     elseif prob >= 50 and prob < 60 then
         if Player.Functions.AddItem("diamond_ring", quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["diamond_ring"], 'add')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'you have to much in pockets.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'The safe is empty...', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'This safe is empty...', 'error')
     end      
 end)
 

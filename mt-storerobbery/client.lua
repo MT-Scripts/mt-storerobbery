@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
--- Event para roubar parteleiras
+-- Event for robberies
 RegisterNetEvent('mt-storerobbery:client:RoubarParteleira')
 AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
     local pos = GetEntityCoords(PlayerPedId())
@@ -31,7 +31,7 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
         end
     end)
     else
-        QBCore.Functions.Notify("The store was recently robbed and is empty...")
+        QBCore.Functions.Notify("This store was recently robber and left  empty...")
         end
     end)
 end)
@@ -66,7 +66,7 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
         end
     end)
     else
-        QBCore.Functions.Notify("The store was recently robbed and is empty...")
+        QBCore.Functions.Notify("This store was recently robber and left  empty...")
         end
     end)
 end)
@@ -102,7 +102,7 @@ AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
         end
     end)
     else
-        QBCore.Functions.Notify("The store was recently robbed and is empty...")
+        QBCore.Functions.Notify("This store was recently robber and left  empty...")
         end
     end)
 end)
@@ -138,7 +138,7 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
         end
     end)
     else
-        QBCore.Functions.Notify("The store was recently robbed and is empty...")
+        QBCore.Functions.Notify("This store was recently robber and left  empty...")
         end
     end)
 end)

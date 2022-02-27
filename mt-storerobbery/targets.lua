@@ -12,7 +12,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -30,7 +30,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -85,7 +85,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -103,7 +103,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -158,7 +158,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -176,7 +176,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -231,7 +231,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -249,7 +249,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -304,7 +304,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -322,7 +322,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -377,7 +377,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -395,7 +395,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -450,7 +450,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -468,7 +468,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -523,7 +523,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -541,7 +541,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -596,7 +596,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
@@ -614,7 +614,7 @@ Citizen.CreateThread(function ()
                 type = "Client",
                 event = "mt-storerobbery:client:RoubarParteleira2",
                 icon = "fad fa-sack-dollar",
-                label = 'Rob Shelf'
+                label = 'Snatch From Shelf'
             },
         },
         distance = 1.5
