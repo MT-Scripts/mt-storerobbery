@@ -4,17 +4,13 @@ game 'gta5'
 
 author 'mt scripts'
 
-description 'mt-storerobbery'
+description 'mt-atmrobbery'
 
 version '0.1'
 
-shared_scripts {
-    'config.lua',
-}
-
 client_scripts{
     'client.lua',
-    'targets.lua',
+    'targets,lua',
 }
 
 server_scripts{
