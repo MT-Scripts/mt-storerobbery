@@ -10,7 +10,7 @@ version '0.1'
 
 client_scripts{
     'client.lua',
-    'targets,lua',
+    'targets.lua',
 }
 
 server_scripts{
