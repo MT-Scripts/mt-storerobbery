@@ -30,8 +30,8 @@ end
 RegisterNetEvent('mt-storerobbery:client:RoubarParteleira')
 AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
     QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownParteleiras", function(cooldown)
-        if not cooldown then
-    QBCore.Functions.Progressbar("parteleira", "SEARCHING SHELF...", 5000, false, true, {
+        if not cooldown and CurrentCops >= Config.requiredCopsCount then
+    QBCore.Functions.Progressbar("parteleira", locale('searching_shelf'), 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -52,8 +52,10 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
             if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end end, 2, 20)          
         end
     end)
-    else
-        Notify(locale('empty'))
+elseif cooldown then
+    Notify(locale('empty'))
+else
+    Notify(locale('error_no_police'))
     end
     end)
 end)
@@ -62,8 +64,8 @@ RegisterNetEvent('mt-storerobbery:client:RoubarParteleira2')
 AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
     local pos = GetEntityCoords(PlayerPedId())
     QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownParteleiras2", function(cooldown)
-        if not cooldown then
-    QBCore.Functions.Progressbar("parteleira", "SEARCHING SHELF...", 5000, false, true, {
+        if not cooldown and CurrentCops >= Config.requiredCopsCount then
+    QBCore.Functions.Progressbar("parteleira", locale('searching_shelf'), 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -84,9 +86,11 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
             if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end end, 2, 20)          
         end
     end)
-    else
-        Notify(locale('empty'))
-        end
+elseif cooldown then
+    Notify(locale('empty'))
+else
+    Notify(locale('error_no_police'))
+    end
     end)
 end)
 
@@ -111,7 +115,7 @@ RegisterNetEvent('mt-storerobbery:client:RoubarRegistadora')
 AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
     local pos = GetEntityCoords(PlayerPedId())
     QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownRegistadora", function(cooldown)
-        if not cooldown then
+        if not cooldown and CurrentCops >= Config.requiredCopsCount then
     QBCore.Functions.Progressbar("registadora", "SEARCHING CASH REGISTER...", 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
@@ -133,8 +137,10 @@ AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
             if success then RoubarRegistadoraSuccess() else RoubarRegistadoraFail() end end, 2, 20)          
         end
     end)
-    else
+elseif cooldown then
         Notify(locale('empty'))
+    else
+        Notify(locale('error_no_police'))
         end
     end)
 end)
@@ -161,7 +167,7 @@ RegisterNetEvent('mt-storerobbery:client:RoubarCofre')
 AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
     local pos = GetEntityCoords(PlayerPedId())
     QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownCofre", function(cooldown)
-        if not cooldown then
+        if not cooldown and CurrentCops >= Config.requiredCopsCount then
     QBCore.Functions.Progressbar("cofre", "SEARCHING SAFE...", 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
@@ -184,9 +190,11 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
         end
 
     end)
-    else
-        Notify(locale('empty'))
-        end
+elseif cooldown then
+    Notify(locale('empty'))
+else
+    Notify(locale('error_no_police'))
+    end
     end)
 end)
 
