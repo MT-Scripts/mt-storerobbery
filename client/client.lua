@@ -130,6 +130,8 @@ function RoubarRegistadoraSuccess()
 end
 
 function RoubarRegistadoraFail()
+    local pos = GetEntityCoords(PlayerPedId())
+    local playerPed = PlayerPedId()
     QBCore.Functions.Notify("Failed!", "error")
     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     ClearPedTasks(playerPed)
@@ -151,8 +153,6 @@ AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
         anim = "fixing_a_player",
         flags = 16,
     }, {}, {}, function() 
-        local playerPed = PlayerPedId()
-        local success = exports['qb-lock']:StartLockPickCircle(1,30)
         if Config.Minigame == 'qb-lock' then
             local success = exports['qb-lock']:StartLockPickCircle(1,30)
             if success then RoubarRegistadoraSuccess() else RoubarRegistadoraFail() end
@@ -170,6 +170,23 @@ AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
     end)
 end)
 
+
+function RoubarCofreSuccess()
+    PoliceCall()
+    TriggerServerEvent("mt-storerobbery:server:ItensCofre")
+    TriggerServerEvent('mt-storerobbery:Server:CooldownCofre')
+    StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
+    ClearPedTasks(playerPed)
+end
+
+function RoubarCofreFail()
+    local pos = GetEntityCoords(PlayerPedId())
+    local playerPed = PlayerPedId()
+    QBCore.Functions.Notify("Failed!", "error")
+    TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
+    ClearPedTasks(playerPed)
+end
+
 -- Event para roubar cofres
 RegisterNetEvent('mt-storerobbery:client:RoubarCofre')
 AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
@@ -186,19 +203,17 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
         anim = "fixing_a_player",
         flags = 16,
     }, {}, {}, function() 
-        local playerPed = PlayerPedId()
-        local success = exports['qb-lock']:StartLockPickCircle(1,30)
-   if success then
-        PoliceCall()
-        TriggerServerEvent("mt-storerobbery:server:ItensCofre")
-        TriggerServerEvent('mt-storerobbery:Server:CooldownCofre')
-        StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
-        ClearPedTasks(playerPed)
-    else
-        QBCore.Functions.Notify("Failed!", "error")
-        TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
-        ClearPedTasks(playerPed)
+        if Config.Minigame == 'qb-lock' then
+            local success = exports['qb-lock']:StartLockPickCircle(1,30)
+            if success then RoubarCofreSuccess() else RoubarCofreFail() end
+        elseif Config.Minigame == 'ox_lib' then
+            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
+            if success then RoubarCofreSuccess() else RoubarCofreFail() end
+        elseif Config.Minigame == 'ps-ui' then
+            local success = exports['ps-ui']:Circle(function(success)
+            if success then RoubarCofreSuccess() else RoubarCofreFail() end end, 2, 20)          
         end
+
     end)
     else
         QBCore.Functions.Notify("This store was recently robber and left  empty...")
