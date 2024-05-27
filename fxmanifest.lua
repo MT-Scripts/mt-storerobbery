@@ -1,17 +1,12 @@
 fx_version 'cerulean'
-
 game 'gta5'
-
-author 'mt scripts'
-
-description 'mt-storerobbery'
-
+author 'Marttins & Slayn | MT Scripts'
+description 'Advance StoreRobbery'
 lua54 'yes'
 
-version '0.1'
 
 shared_script {
-    "shared/**",
+    'shared/*.lua',
     '@ox_lib/init.lua',
 }
 
@@ -22,3 +17,8 @@ client_scripts{
 server_scripts{
     'server/*.lua'
 }
+
+files {
+    'locales/*.json',
+}
+ox_lib 'locale' 
