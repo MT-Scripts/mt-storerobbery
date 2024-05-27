@@ -1,43 +1,12 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local CurrentCops = 0
 
--- \\ Functions
-function Dispatch()
-    if Config.Dispatch == 'qb' then
-        TriggerServerEvent('police:server:policeAlert', 'STORE ROBBERY IN PROGRESS')
-    elseif Config.Dispatch == 'ps-dispatch' then
-        exports['ps-dispatch']:StoreRobbery(camId)
-    elseif Config.Dispatch == 'cd_dispatch' then
-        local data = exports['cd_dispatch']:GetPlayerInfo()
-        TriggerServerEvent('cd_dispatch:AddNotification', {
-            job_table = { 'police' },
-            coords = data.coords,
-            title = '10-9 Store Robbery',
-            message = 'Store Robbery Going On',
-            flash = 0,
-            unique_id = data.unique_id,
-            sound = 1,
-            blip = {
-                sprite = 51,
-                scale = 1.2,
-                colour = 1,
-                flashes = false,
-                text = '10-9 Store Robbery',
-                time = 5,
-                radius = 0,
-            }
-        })
-    end
-end
 
-function PoliceCall()
-    local chance = 75
-    if GetClockHours() >= 0 and GetClockHours() <= 6 then
-        chance = 50
-    end
-    if math.random(1, 100) <= chance then
-        Dispatch()
-    end
-end
+RegisterNetEvent('police:SetCopCount')
+AddEventHandler('police:SetCopCount', function(amount)
+    CurrentCops = amount
+end)
+
 
 function RoubarParteleiraSuccess()
     PoliceCall()
@@ -50,7 +19,7 @@ end
 function RoubarParteleiraFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
-    QBCore.Functions.Notify("Failed!", "error")
+    Notify(locale('failed'), "error")
     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     ClearPedTasks(playerPed)
 end
@@ -84,8 +53,8 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
         end
     end)
     else
-        QBCore.Functions.Notify("This store was recently robber and left  empty...")
-        end
+        Notify(locale('empty'))
+    end
     end)
 end)
 
@@ -116,7 +85,7 @@ AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
         end
     end)
     else
-        QBCore.Functions.Notify("This store was recently robber and left empty...")
+        Notify(locale('empty'))
         end
     end)
 end)
@@ -132,7 +101,7 @@ end
 function RoubarRegistadoraFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
-    QBCore.Functions.Notify("Failed!", "error")
+    Notify(locale('failed'), "error")
     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     ClearPedTasks(playerPed)
 end
@@ -165,7 +134,7 @@ AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
         end
     end)
     else
-        QBCore.Functions.Notify("This store was recently robber and left  empty...")
+        Notify(locale('empty'))
         end
     end)
 end)
@@ -182,7 +151,7 @@ end
 function RoubarCofreFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
-    QBCore.Functions.Notify("Failed!", "error")
+    Notify(locale('failed'), 'error')
     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     ClearPedTasks(playerPed)
 end
@@ -216,7 +185,7 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
 
     end)
     else
-        QBCore.Functions.Notify("This store was recently robber and left  empty...")
+        Notify(locale('empty'))
         end
     end)
 end)
