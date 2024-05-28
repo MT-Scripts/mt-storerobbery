@@ -1,6 +1,6 @@
 if Config.Target == 'qb' then
     
-for Registers_1, v in pairs(Config.Registers_1) do
+for Registers_1, v in pairs(Config.Registers) do
     exports["qb-target"]:AddBoxZone("Registers_1" .. Registers_1, v.coords, 1, 1, {
         name = "Registers_1" .. Registers_1,
         heading = 90,
@@ -43,7 +43,7 @@ for Shelf_1, v in pairs(Config.Shelf_1) do
 end
 
 for Shelf_2, v in pairs(Config.Shelf_2) do
-    exports["qb-target"]:AddBoxZone("Shelf_2" .. Shelf_1, v.coords, 1, 1, {
+    exports["qb-target"]:AddBoxZone("Shelf_2" .. Shelf_2, v.coords, 1, 1, {
         name = "Shelf_2" .. Shelf_2,
         heading = 90,
         minZ = v.coords.z - 0.2,
