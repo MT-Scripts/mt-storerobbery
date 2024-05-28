@@ -2,7 +2,7 @@ Config = {}
 
 Config.Debug = false
 
-
+--\\ Note Still work is going on for ox 
 Config.Notify = 'ox' -- \\ qb or ox 
 Config.Target = 'qb' -- \\ qb or ox
 Config.Inventory = 'qb' -- \\ qb or ox
@@ -26,6 +26,17 @@ Config.Registers_Reward = {
 }
 
 -- \\ Safe // --
+Config.Required_Safe_item = 'trojan_usb' 
+Config.Safe_Reward = {
+    -- [Note] you will only get one reward from both its random 
+    Reward_1 = 'goldbar',
+    Reward_2 = 'diamond_ring',
+
+    -- \\ Get Minimum And Maximum Item // --
+    Min = 5, -- Minimum
+    Max = 10, -- Maximum
+}
+
 Config.Safe_Config = {
     -- \\ Minigame 
     Minigame = 'ps-ui', --\\ if '' it will use use Config.Minigame

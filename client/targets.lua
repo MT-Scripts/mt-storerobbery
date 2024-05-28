@@ -74,7 +74,7 @@ for Safe, v in pairs(Config.Safe) do
         options = {
             {
                 type = "Client",
-                event = "mt-storerobbery:client:RoubarCofre",
+                event = "mt-storerobbery:client:RobSafe",
                 icon = "fad fa-sack-dollar",
                 label = 'Rob Safe'
             }

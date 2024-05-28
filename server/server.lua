@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local Cooldown = false
-local cashA = Config.Reward.Min
-local cashB = Config.Reward.Max
+local cashA = Config.Registers_Reward.Min
+local cashB = Config.Registers_Reward.Max
 
 -- Itens dados ao roubar as parteleiras
 RegisterServerEvent('mt-storerobbery:server:ItensParteleiras', function() 
@@ -43,20 +43,18 @@ RegisterServerEvent('mt-storerobbery:server:ItemsRegister', function()
 end)
 
 -- Itens dados ao roubar o cofre
-RegisterServerEvent('mt-storerobbery:server:ItensCofre', function() 
+RegisterServerEvent('mt-storerobbery:server:ItemSafe', function() 
     local src = source
     local Player  = QBCore.Functions.GetPlayer(src)
     local prob = math.random(1, 100)
-    local quantity = math.random(1, 2)
+    local quantity = math.random(Config.Safe_Reward.Min, Config.Safe_Reward.Max)
     if prob < 30 then
-        if Player.Functions.AddItem("goldbar", quantity) then
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["goldbar"], 'add')
+        if Player.Functions.AddItem(Config.Safe_Reward.Reward_1, quantity) then
         else
             TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end  
     elseif prob >= 50 and prob < 60 then
-        if Player.Functions.AddItem("diamond_ring", quantity) then
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["diamond_ring"], 'add')
+        if Player.Functions.AddItem(Config.Safe_Reward.Reward_2, quantity) then
         else
             TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end
@@ -105,15 +103,15 @@ AddEventHandler('mt-storerobbery:Server:CooldownRegister', function()
     end
 end)
 
-RegisterServerEvent('mt-storerobbery:Server:CooldownCofre')
-AddEventHandler('mt-storerobbery:Server:CooldownCofre', function()
-    CooldownCofre = true
+RegisterServerEvent('mt-storerobbery:Server:CooldownSafe')
+AddEventHandler('mt-storerobbery:Server:CooldownSafe', function()
+    CooldownSafe = true
     local timer = 60000 * 60000
     while timer > 0 do
         Wait(1000)
         timer = timer - 1000
         if timer == 0 then
-            CooldownCofre = false
+            CooldownSafe = false
         end
     end
 end)
@@ -145,8 +143,8 @@ QBCore.Functions.CreateCallback("mt-storerobbery:CooldownRegister",function(sour
     end
 end)
 
-QBCore.Functions.CreateCallback("mt-storerobbery:CooldownCofre",function(source, cb)
-    if CooldownCofre then
+QBCore.Functions.CreateCallback("mt-storerobbery:CooldownSafe",function(source, cb)
+    if CooldownSafe then
         cb(true)
     else
         cb(false)

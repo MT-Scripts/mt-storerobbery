@@ -149,15 +149,15 @@ AddEventHandler("mt-storerobbery:client:RobRegister", function()
      end
 end)
 
-function RoubarCofreSuccess()
+function RobSafeSuccess()
     PoliceCall()
-    TriggerServerEvent("mt-storerobbery:server:ItensCofre")
-    TriggerServerEvent('mt-storerobbery:Server:CooldownCofre')
+    TriggerServerEvent("mt-storerobbery:server:ItemSafe")
+    TriggerServerEvent('mt-storerobbery:Server:CooldownSafe')
     StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
     ClearPedTasks(playerPed)
 end
 
-function RoubarCofreFail()
+function RobSafeFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
     Notify(locale('failed'), 'error')
@@ -165,48 +165,52 @@ function RoubarCofreFail()
     ClearPedTasks(playerPed)
 end
 
--- Event para roubar cofres
-RegisterNetEvent('mt-storerobbery:client:RoubarCofre')
-AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
-    local pos = GetEntityCoords(PlayerPedId())
-    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownCofre", function(cooldown)
-        if not cooldown and CurrentCops >= Config.requiredCopsCount then
-    QBCore.Functions.Progressbar("cofre", locale('searching_safe'), 5000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "mini@repair",
-        anim = "fixing_a_player",
-        flags = 16,
-    }, {}, {}, function() 
-        if Config.Safe_Config.Minigame == 'ps-ui' then
-            if Config.Safe_Config.Minigame_Type == 'Scrambler' then
-            exports['ps-ui']:Scrambler(function(success)
-            if success then RoubarCofreSuccess() else RoubarCofreFail() end end, "numeric", 30, 0) 
-            elseif Config.Safe_Config.Minigame_Type  == "Thermite" then
-                exports['ps-ui']:Thermite(function(success)
-                if success then RoubarCofreSuccess() else RoubarCofreFail() end end, 10, 5, 3) 
+-- Event for Rob Safe 
+RegisterNetEvent('mt-storerobbery:client:RobSafe')
+AddEventHandler("mt-storerobbery:client:RobSafe", function()
+    local SafeItem = Hasitem(Config.Required_Safe_item, 1)
+    if SafeItem then
+        QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownSafe",function(cooldown)
+            if not cooldown and CurrentCops >= Config.requiredCopsCount then
+                QBCore.Functions.Progressbar("safe", locale('searching_safe'), 5000, false, true, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                }, {
+                    animDict = "mini@repair",
+                    anim = "fixing_a_player",
+                    flags = 16,
+                }, {}, {}, function ()
+                    if Config.Safe_Config.Minigame == 'ps-ui' then
+                        if Config.Safe_Config.Minigame_Type == 'Scrambler' then
+                        exports['ps-ui']:Scrambler(function(success)
+                        if success then RobSafeSuccess() else RobSafeFail() end end, "numeric", 30, 0) 
+                        elseif Config.Safe_Config.Minigame_Type  == "Thermite" then
+                            exports['ps-ui']:Thermite(function(success)
+                            if success then RobSafeSuccess() else RobSafeFail() end end, 10, 5, 3) 
+                        end
+                    else
+                    if Config.Minigame == 'qb-lock' then
+                        local success = exports['qb-lock']:StartLockPickCircle(1,30)
+                        if success then RobSafeSuccess() else RobSafeFail() end
+                    elseif Config.Minigame == 'ox_lib' then
+                        local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
+                        if success then RobSafeSuccess() else RobSafeFail() end
+                    elseif Config.Minigame == 'ps-ui' then
+                        local success = exports['ps-ui']:Circle(function(success)
+                        if success then RobSafeSuccess() else RobSafeFail() end end, 2, 20)          
+                    end
+                    end
+                end)
+                elseif cooldown then
+                    Notify(locale('empty'))
+                else
+                    Notify(locale('error_no_police'))
             end
+            
+        end)
         else
-        if Config.Minigame == 'qb-lock' then
-            local success = exports['qb-lock']:StartLockPickCircle(1,30)
-            if success then RoubarCofreSuccess() else RoubarCofreFail() end
-        elseif Config.Minigame == 'ox_lib' then
-            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
-            if success then RoubarCofreSuccess() else RoubarCofreFail() end
-        elseif Config.Minigame == 'ps-ui' then
-            local success = exports['ps-ui']:Circle(function(success)
-            if success then RoubarCofreSuccess() else RoubarCofreFail() end end, 2, 20)          
-        end
-        end
-    end)
-elseif cooldown then
-    Notify(locale('empty'))
-else
-    Notify(locale('error_no_police'))
+            Notify(locale('error_no_item'), "error")
     end
-    end)
 end)
-
