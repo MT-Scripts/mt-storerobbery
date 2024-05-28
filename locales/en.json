@@ -1,8 +1,15 @@
 {
   "police_notification": "Store Robbery In Progress",
-  "searching_shelf":"Searching Shelf...",
-  "searching_safe": "Searching Safe...",
   "failed":"Failed!",
-  "error_no_police": "Not Enough Police Officers...",
-  "empty": "This store was recently robber and left  empty..."
+  "empty": "This store was recently robber and left  empty...",
+
+
+  "searching_shelf":"Searching Shelf...",
+  "searching_register":"Searching Cash Register...",
+  "searching_safe": "Searching Safe...",
+  
+
+
+  "error_no_item": "Yoy Dont Have The Required Item",
+  "error_no_police": "Not Enough Police Officers..."
 }

@@ -11,7 +11,7 @@ for Registers_1, v in pairs(Config.Registers) do
         options = {
             {
                 type = "Client",
-                event = "mt-storerobbery:client:RoubarRegistadora",
+                event = "mt-storerobbery:client:RobRegister",
                 icon = "fad fa-sack-dollar",
                 label = 'Rob Cash Register'
 

@@ -94,15 +94,15 @@ else
     end)
 end)
 
-function RoubarRegistadoraSuccess()
+function RobRegisterSuccess()
     PoliceCall()
-    TriggerServerEvent("mt-storerobbery:server:ItensRegistadoras")
-    TriggerServerEvent('mt-storerobbery:Server:CooldownRegistadora')
+    TriggerServerEvent("mt-storerobbery:server:ItemsRegister")
+    TriggerServerEvent('mt-storerobbery:Server:CooldownRegister')
     StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
     ClearPedTasks(playerPed)
 end
 
-function RoubarRegistadoraFail()
+function RobRegisterFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
     Notify(locale('failed'), "error")
@@ -110,41 +110,44 @@ function RoubarRegistadoraFail()
     ClearPedTasks(playerPed)
 end
 
--- Event para roubar registadoras
-RegisterNetEvent('mt-storerobbery:client:RoubarRegistadora')
-AddEventHandler("mt-storerobbery:client:RoubarRegistadora", function()
-    local pos = GetEntityCoords(PlayerPedId())
-    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownRegistadora", function(cooldown)
-        if not cooldown and CurrentCops >= Config.requiredCopsCount then
-    QBCore.Functions.Progressbar("registadora", "SEARCHING CASH REGISTER...", 5000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "mini@repair",
-        anim = "fixing_a_player",
-        flags = 16,
-    }, {}, {}, function() 
-        if Config.Minigame == 'qb-lock' then
-            local success = exports['qb-lock']:StartLockPickCircle(1,30)
-            if success then RoubarRegistadoraSuccess() else RoubarRegistadoraFail() end
-        elseif Config.Minigame == 'ox_lib' then
-            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
-            if success then RoubarRegistadoraSuccess() else RoubarRegistadoraFail() end
-        elseif Config.Minigame == 'ps-ui' then
-            local success = exports['ps-ui']:Circle(function(success)
-            if success then RoubarRegistadoraSuccess() else RoubarRegistadoraFail() end end, 2, 20)          
-        end
-    end)
-elseif cooldown then
-        Notify(locale('empty'))
-    else
-        Notify(locale('error_no_police'))
-        end
-    end)
+-- \\ Event For Rob Register
+RegisterNetEvent('mt-storerobbery:client:RobRegister')
+AddEventHandler("mt-storerobbery:client:RobRegister", function()
+     local lockpick = Hasitem(Config.Required_Registers_item, 1)
+     if lockpick then
+        QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownRegister", function (cooldown)
+            if not cooldown and CurrentCops >= Config.requiredCopsCount then
+                QBCore.Functions.Progressbar("Register", locale('searching_register'), 5000, false, true, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                }, {
+                    animDict = "veh@break_in@0h@p_m_one@",
+                    anim = "low_force_entry_ds",
+                    flags = 16,
+                }, {}, {}, function() 
+                    if Config.Minigame == 'qb-lock' then
+                        local success = exports['qb-lock']:StartLockPickCircle(1,30)
+                        if success then RobRegisterSuccess() else RobRegisterFail() end
+                        elseif Config.Minigame == 'ox_lib' then
+                            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
+                            if success then RobRegisterSuccess() else RobRegisterFail() end
+                            elseif Config.Minigame == 'ps-ui' then
+                                local success = exports['ps-ui']:Circle(function(success)
+                                    if success then RobRegisterSuccess() else RobRegisterFail() end end, 2, 20) 
+                    end
+                end)
+            elseif cooldown then
+                Notify(locale('empty'))
+            else
+                Notify(locale('error_no_police'))
+            end
+        end)
+         else
+             Notify(locale('error_no_item'), "error")
+     end
 end)
-
 
 function RoubarCofreSuccess()
     PoliceCall()

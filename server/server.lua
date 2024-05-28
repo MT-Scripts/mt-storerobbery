@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local Cooldown = false
-local cashA = 50
-local cashB = 150
+local cashA = Config.Reward.Min
+local cashB = Config.Reward.Max
 
 -- Itens dados ao roubar as parteleiras
 RegisterServerEvent('mt-storerobbery:server:ItensParteleiras', function() 
@@ -32,17 +32,14 @@ RegisterServerEvent('mt-storerobbery:server:ItensParteleiras', function()
     end      
 end)
 
--- Itens dados ao roubar a registadora
-RegisterServerEvent('mt-storerobbery:server:ItensRegistadoras', function()
-    local src = source
+-- Items For Cash Register
+RegisterServerEvent('mt-storerobbery:server:ItemsRegister', function()
 	local Player =  QBCore.Functions.GetPlayer(source)
-    local bags = 1
+    local bags = Config.Registers_Reward.Total_Bags
 	local info = {
 		worth = math.random(cashA, cashB)
 	}
-	Player.Functions.AddItem('markedbills', bags, false, info)
-    Player.Functions.RemoveItem("trojan_usb", 1)
-    TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['markedbills'], "add")
+	Player.Functions.AddItem(Config.Registers_Reward.Item, bags, false, info)
 end)
 
 -- Itens dados ao roubar o cofre
@@ -95,15 +92,15 @@ AddEventHandler('mt-storerobbery:Server:CooldownParteleiras2', function()
     end
 end)
 
-RegisterServerEvent('mt-storerobbery:Server:CooldownRegistadora')
-AddEventHandler('mt-storerobbery:Server:CooldownRegistadora', function()
-    CooldownRegistadora = true
+RegisterServerEvent('mt-storerobbery:Server:CooldownRegister')
+AddEventHandler('mt-storerobbery:Server:CooldownRegister', function()
+    CooldownRegister = true
     local timer = 60000 * 60000
     while timer > 0 do
         Wait(1000)
         timer = timer - 1000
         if timer == 0 then
-            CooldownRegistadora = false
+            CooldownRegister = false
         end
     end
 end)
@@ -139,8 +136,8 @@ QBCore.Functions.CreateCallback("mt-storerobbery:CooldownParteleiras2",function(
     end
 end)
 
-QBCore.Functions.CreateCallback("mt-storerobbery:CooldownRegistadora",function(source, cb)
-    if CooldownRegistadora then
+QBCore.Functions.CreateCallback("mt-storerobbery:CooldownRegister",function(source, cb)
+    if CooldownRegister then
         cb(true)
     else
         cb(false)
