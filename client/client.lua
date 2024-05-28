@@ -168,7 +168,7 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
     local pos = GetEntityCoords(PlayerPedId())
     QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownCofre", function(cooldown)
         if not cooldown and CurrentCops >= Config.requiredCopsCount then
-    QBCore.Functions.Progressbar("cofre", "SEARCHING SAFE...", 5000, false, true, {
+    QBCore.Functions.Progressbar("cofre", locale('searching_safe'), 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -178,6 +178,15 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
         anim = "fixing_a_player",
         flags = 16,
     }, {}, {}, function() 
+        if Config.Safe_Config.Minigame == 'ps-ui' then
+            if Config.Safe_Config.Minigame_Type == 'Scrambler' then
+            exports['ps-ui']:Scrambler(function(success)
+            if success then RoubarCofreSuccess() else RoubarCofreFail() end end, "numeric", 30, 0) 
+            elseif Config.Safe_Config.Minigame_Type  == "Thermite" then
+                exports['ps-ui']:Thermite(function(success)
+                if success then RoubarCofreSuccess() else RoubarCofreFail() end end, 10, 5, 3) 
+            end
+        else
         if Config.Minigame == 'qb-lock' then
             local success = exports['qb-lock']:StartLockPickCircle(1,30)
             if success then RoubarCofreSuccess() else RoubarCofreFail() end
@@ -188,7 +197,7 @@ AddEventHandler("mt-storerobbery:client:RoubarCofre", function()
             local success = exports['ps-ui']:Circle(function(success)
             if success then RoubarCofreSuccess() else RoubarCofreFail() end end, 2, 20)          
         end
-
+        end
     end)
 elseif cooldown then
     Notify(locale('empty'))
