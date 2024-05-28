@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = false
+Config.Debug = true
 
 --\\ Note Still work is going on for ox 
 Config.Notify = 'ox' -- \\ qb or ox 
@@ -13,6 +13,16 @@ Config.Minigame = 'ps-ui' -- ps-ui or ox_lib or qb-lock (For shelf/Registers)
 Config.requiredCopsCount  = 0
 
 
+Config.Shelf_Reward = {
+    -- [Note] you will only get one reward from these three items 
+    Reward_1 = 'lighter',
+    Reward_2 = 'water',
+    Reward_3 = 'sandwhich',
+
+    -- \\ Get Minimum And Maximum Item // --
+    Min = 5, -- Minimum
+    Max = 10, -- Maximum
+}
 
 -- \\ Cash Registers // --
 Config.Required_Registers_item = 'lockpick' 

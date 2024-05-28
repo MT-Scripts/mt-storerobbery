@@ -32,7 +32,7 @@ for Shelf_1, v in pairs(Config.Shelf_1) do
         options = {
             {
                 type = "Client",
-                event = "mt-storerobbery:client:RoubarParteleira",
+                event = "mt-storerobbery:client:Robshelf",
                 icon = "fad fa-sack-dollar",
                 label = 'Snatch From Shelf'
 
@@ -53,7 +53,7 @@ for Shelf_2, v in pairs(Config.Shelf_2) do
         options = {
             {
                 type = "Client",
-                event = "mt-storerobbery:client:RoubarParteleira2",
+                event = "mt-storerobbery:client:Robshelf2",
                 icon = "fad fa-sack-dollar",
                 label = 'Snatch From Shelf'
 

@@ -4,25 +4,25 @@ local cashA = Config.Registers_Reward.Min
 local cashB = Config.Registers_Reward.Max
 
 -- Itens dados ao roubar as parteleiras
-RegisterServerEvent('mt-storerobbery:server:ItensParteleiras', function() 
+RegisterServerEvent('mt-storerobbery:server:ItemShelf', function() 
     local src = source
     local Player  = QBCore.Functions.GetPlayer(src)
     local prob = math.random(1, 100)
-    local quantity = math.random(1, 2)
+    local quantity = math.random(Config.Shelf_Reward.Min, Config.Shelf_Reward.Max)
     if prob < 30 then
-        if Player.Functions.AddItem("water_bottle", quantity) then
+        if Player.Functions.AddItem(Config.Shelf_Reward.Reward_1, quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["water_bottle"], 'add')
         else
             TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end  
     elseif prob >= 30 and prob < 40 then
-        if Player.Functions.AddItem("sandwich", quantity) then
+        if Player.Functions.AddItem(Config.Shelf_Reward.Reward_2, quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sandwich"], 'add')
         else
             TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
         end 
     elseif prob >= 50 and prob < 60 then
-        if Player.Functions.AddItem("lighter", quantity) then
+        if Player.Functions.AddItem(Config.Shelf_Reward.Reward_3, quantity) then
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["lighter"], 'add')
         else
             TriggerClientEvent('QBCore:Notify', src, 'Your pockets seem to weigh too much!', 'error')
@@ -64,28 +64,28 @@ RegisterServerEvent('mt-storerobbery:server:ItemSafe', function()
 end)
 
 -- Cooldown
-RegisterServerEvent('mt-storerobbery:Server:CooldownParteleiras')
-AddEventHandler('mt-storerobbery:Server:CooldownParteleiras', function()
-    CooldownParteleiras = true
+RegisterServerEvent('mt-storerobbery:Server:CooldownShelf')
+AddEventHandler('mt-storerobbery:Server:CooldownShelf', function()
+    CooldownShelf = true
     local timer = 60000 * 60000
     while timer > 0 do
         Wait(1000)
         timer = timer - 1000
         if timer == 0 then
-            CooldownParteleiras = false
+            CooldownShelf = false
         end
     end
 end)
 
-RegisterServerEvent('mt-storerobbery:Server:CooldownParteleiras2')
-AddEventHandler('mt-storerobbery:Server:CooldownParteleiras2', function()
-    CooldownParteleiras2 = true
+RegisterServerEvent('mt-storerobbery:Server:CooldownShelf2')
+AddEventHandler('mt-storerobbery:Server:CooldownShelf2', function()
+    CooldownShelf2 = true
     local timer = 60000 * 60000
     while timer > 0 do
         Wait(1000)
         timer = timer - 1000
         if timer == 0 then
-            CooldownParteleiras2 = false
+            CooldownShelf2 = false
         end
     end
 end)
@@ -116,8 +116,8 @@ AddEventHandler('mt-storerobbery:Server:CooldownSafe', function()
     end
 end)
 
-QBCore.Functions.CreateCallback("mt-storerobbery:CooldownParteleiras",function(source, cb)
-    if CooldownParteleiras then
+QBCore.Functions.CreateCallback("mt-storerobbery:CooldownShelf",function(source, cb)
+    if CooldownShelf then
         cb(true)
     else
         cb(false)
@@ -125,8 +125,8 @@ QBCore.Functions.CreateCallback("mt-storerobbery:CooldownParteleiras",function(s
     end
 end)
 
-QBCore.Functions.CreateCallback("mt-storerobbery:CooldownParteleiras2",function(source, cb)
-    if CooldownParteleiras2 then
+QBCore.Functions.CreateCallback("mt-storerobbery:CooldownShelf2",function(source, cb)
+    if CooldownShelf2 then
         cb(true)
     else
         cb(false)

@@ -8,15 +8,15 @@ AddEventHandler('police:SetCopCount', function(amount)
 end)
 
 
-function RoubarParteleiraSuccess()
+function RobshelfSuccess()
     PoliceCall()
-    TriggerServerEvent("mt-storerobbery:server:ItensParteleiras")
-    TriggerServerEvent('mt-storerobbery:Server:CooldownParteleiras')
+    TriggerServerEvent("mt-storerobbery:server:ItemShelf")
+    TriggerServerEvent('mt-storerobbery:Server:CooldownShelf')
     StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
     ClearPedTasks(playerPed)
 end
 
-function RoubarParteleiraFail()
+function RobshelfFail()
     local pos = GetEntityCoords(PlayerPedId())
     local playerPed = PlayerPedId()
     Notify(locale('failed'), "error")
@@ -26,72 +26,92 @@ end
 
 
 
--- Event for robberies
-RegisterNetEvent('mt-storerobbery:client:RoubarParteleira')
-AddEventHandler("mt-storerobbery:client:RoubarParteleira", function()
-    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownParteleiras", function(cooldown)
+-- Event for robberies Shelf
+RegisterNetEvent('mt-storerobbery:client:Robshelf')
+AddEventHandler('mt-storerobbery:client:Robshelf', function()
+    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownShelf", function(cooldown)
         if not cooldown and CurrentCops >= Config.requiredCopsCount then
-    QBCore.Functions.Progressbar("parteleira", locale('searching_shelf'), 5000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "mini@repair",
-        anim = "fixing_a_player",
-        flags = 16,
-    }, {}, {}, function() 
-        if Config.Minigame == 'qb-lock' then
-            local success = exports['qb-lock']:StartLockPickCircle(1,30)
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end
-        elseif Config.Minigame == 'ox_lib' then
-            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end
-        elseif Config.Minigame == 'ps-ui' then
-            local success = exports['ps-ui']:Circle(function(success)
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end end, 2, 20)          
+            QBCore.Functions.Progressbar("shelf", locale('searching_shelf'), 5000, false, true, {
+                disableMovement = true,
+                disableCarMovement = true,
+                disableMouse = false,
+                disableCombat = true,
+            }, {
+                animDict = "mini@repair",
+                anim = "fixing_a_player",
+                flags = 16,
+            }, {}, {}, function()
+                if Config.Minigame == 'qb-lock' then
+                    local success = exports['qb-lock']:StartLockPickCircle(1,30)
+                    if success then RobshelfSuccess() else RobshelfFail() end
+                elseif Config.Minigame == 'ox_lib' then
+                    local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
+                    if success then RobshelfSuccess() else RobshelfFail() end
+                elseif Config.Minigame == 'ps-ui' then
+                    local success = exports['ps-ui']:Circle(function(success)
+                    if success then RobshelfSuccess() else RobshelfFail() end end, 2, 20)          
+                end
+            end)
+            elseif cooldown then
+                Notify(locale('empty'))
+            else
+                Notify(locale('error_no_police'))
         end
+        
     end)
-elseif cooldown then
-    Notify(locale('empty'))
-else
-    Notify(locale('error_no_police'))
-    end
-    end)
+    
 end)
 
-RegisterNetEvent('mt-storerobbery:client:RoubarParteleira2')
-AddEventHandler("mt-storerobbery:client:RoubarParteleira2", function()
+function Robshelf2Success()
+    PoliceCall()
+    TriggerServerEvent("mt-storerobbery:server:ItemShelf")
+    TriggerServerEvent('mt-storerobbery:Server:CooldownShelf2')
+    StopAnimTask(ped, dict, "machinic_loop_mechandplayer", 1.0)
+    ClearPedTasks(playerPed)
+end
+
+function Robshelf2Fail()
     local pos = GetEntityCoords(PlayerPedId())
-    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownParteleiras2", function(cooldown)
+    local playerPed = PlayerPedId()
+    Notify(locale('failed'), "error")
+    TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
+    ClearPedTasks(playerPed)
+end
+
+
+RegisterNetEvent('mt-storerobbery:client:Robshelf2')
+AddEventHandler('mt-storerobbery:client:Robshelf2', function()
+    QBCore.Functions.TriggerCallback("mt-storerobbery:CooldownShelf2", function(cooldown)
         if not cooldown and CurrentCops >= Config.requiredCopsCount then
-    QBCore.Functions.Progressbar("parteleira", locale('searching_shelf'), 5000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "mini@repair",
-        anim = "fixing_a_player",
-        flags = 16,
-    }, {}, {}, function() 
-        if Config.Minigame == 'qb-lock' then
-            local success = exports['qb-lock']:StartLockPickCircle(1,30)
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end
-        elseif Config.Minigame == 'ox_lib' then
-            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end
-        elseif Config.Minigame == 'ps-ui' then
-            local success = exports['ps-ui']:Circle(function(success)
-            if success then RoubarParteleiraSuccess() else RoubarParteleiraFail() end end, 2, 20)          
+            QBCore.Functions.Progressbar("shelf2", locale('searching_shelf'), 5000, false, true, {
+                disableMovement = true,
+                disableCarMovement = true,
+                disableMouse = false,
+                disableCombat = true,
+            }, {
+                animDict = "mini@repair",
+                anim = "fixing_a_player",
+                flags = 16,
+            }, {}, {}, function()
+                if Config.Minigame == 'qb-lock' then
+                    local success = exports['qb-lock']:StartLockPickCircle(1,30)
+                    if success then Robshelf2Success() else Robshelf2Fail() end
+                elseif Config.Minigame == 'ox_lib' then
+                    local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}}, {'w', 'a', 's', 'd'})
+                    if success then Robshelf2Success() else Robshelf2Fail() end
+                elseif Config.Minigame == 'ps-ui' then
+                    local success = exports['ps-ui']:Circle(function(success)
+                    if success then Robshelf2Success() else Robshelf2Fail() end end, 2, 20)          
+                end
+            end)
+            elseif cooldown then
+                Notify(locale('empty'))
+            else
+                Notify(locale('error_no_police'))
         end
+        
     end)
-elseif cooldown then
-    Notify(locale('empty'))
-else
-    Notify(locale('error_no_police'))
-    end
-    end)
+    
 end)
 
 function RobRegisterSuccess()
