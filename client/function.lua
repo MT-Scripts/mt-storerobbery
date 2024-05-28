@@ -48,3 +48,9 @@ Notify = function(text, type)
         lib.notify({ description = text, type = type })
     end
 end
+
+Hasitem = function(source, item, ammount)
+    if Config.Inventory == 'qb' then
+        return exports['qb-inventory']:HasItem(source, item, ammount)
+    end
+end
